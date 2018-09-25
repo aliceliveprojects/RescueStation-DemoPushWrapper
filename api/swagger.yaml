@@ -1,0 +1,165 @@
+---
+swagger: "2.0"
+info:
+  description: "# API\nThis API is a partial wrapper to a Push Notification Service\
+    \ provider's Publish and Subscribe service (often called 'topics').\n\nWe are\
+    \ using it to hold the shared secret of the PNS, and expose an easy API to clients\
+    \ which need to send a simple message.\n\nUsage:\n\n1. Create a connection.\n\
+    2. Send a message payload to the connection.\n\nCaveats:\n\nWhen a message is\
+    \ sent to the connection, all parties will recieve the message via the PNS, including\
+    \ the sender.\nIt is up to the sender to compare all incoming messages and message\
+    \ types against those expected from the current context."
+  version: "1.0.0"
+  title: "Messaging"
+  contact: {}
+host: "localhost:8080"
+schemes:
+- "http"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /messages:
+    post:
+      tags:
+      - "Message"
+      summary: "send a message"
+      description: "Send a message to a connection. Note: the message is sent to all\
+        \ parties on the connection. Use disambiguation to ensure you filter correctly."
+      operationId: "messagesPOST"
+      consumes: []
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/MessageRequest"
+      responses:
+        200:
+          description: "Status 200"
+      x-swagger-router-controller: "Messages"
+  /connections:
+    post:
+      tags:
+      - "Connection"
+      summary: "create a connection"
+      description: "Creates a new connection and returns a representational object"
+      operationId: "connectionsPOST"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/Connection"
+      x-swagger-router-controller: "Connections"
+  /connections/{connection_id}:
+    delete:
+      tags:
+      - "Connection"
+      summary: "delete connection"
+      description: "deletes the specified connection"
+      operationId: "connectionsConnection_idDELETE"
+      parameters:
+      - name: "connection_id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Status 200"
+        404:
+          description: "no connection was found to delete"
+      x-swagger-router-controller: "Connections"
+  /user_roles:
+    get:
+      tags:
+      - "Types"
+      summary: "list user roles"
+      description: "returns a list of the supported user roles"
+      operationId: "user_rolesGET"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/NamedInteger"
+      x-swagger-router-controller: "Types"
+  /message_types:
+    get:
+      tags:
+      - "Types"
+      summary: "list message types"
+      description: "returns a list of the supported message types "
+      operationId: "message_typesGET"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/NamedInteger"
+      x-swagger-router-controller: "Types"
+definitions:
+  MessageRequest:
+    type: "object"
+    required:
+    - "message_id"
+    - "message_type"
+    - "payload"
+    - "sender_id"
+    - "sender_role"
+    properties:
+      connection_id: 
+        type: "string"
+        description: "the uuid of the connection to which the message is to be sent"
+      sender_id:
+        type: "string"
+        description: "the self-assigned uuid of the sender. Helps disambiguation"
+      message_id:
+        type: "string"
+        description: "the self-assigned uuid of the message. Helps disambiguation"
+      message_type:
+        type: "integer"
+        description: "message type: list of supprted types available from /message_types"
+      sender_role:
+        type: "string"
+        description: "sender role: list of supported types available from /user_roles"
+      payload:
+        type: "string"
+        description: "base64 encoded payload. format known to both sending and receiving\
+          \ parties."
+      payload format type:
+        type: "integer"
+        description: "payload format type, known to both parties"
+    description: "aggregates the necessary information for sending a message payload"
+  Connection:
+    type: "object"
+    required:
+    - "id"
+    properties:
+      id:
+        type: "string"
+        description: "the internal identifier of the connection"
+    description: "represents the connection between 2 (or more) users"
+    example:
+      id: "id"
+  NamedInteger:
+    type: "object"
+    required:
+    - "name"
+    - "value"
+    properties:
+      name:
+        type: "string"
+        description: "the name of the value"
+      value:
+        type: "integer"
+        description: "the integer value"
+    description: "typed name-value pair"
+    example:
+      name: "name"
+      value: 0

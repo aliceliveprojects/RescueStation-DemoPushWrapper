@@ -1,0 +1,20 @@
+{
+  "name": "messaging",
+  "version": "1.0.0",
+  "description": "# API This API is a partial wrapper to a Push Notification Service provider's Publish and Subscribe service (often called 'topics').  We are using it to hold the shared secret of the PNS, and expose an easy API to clients which need to send a simple message.  Usage:  1. Create a connection. 2. Send a message payload to the connection.  Caveats:  When a message is sent to the connection, all parties will recieve the message via the PNS, including the sender. It is up to the sender to compare all incoming messages and message types against those expected from the current context.",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "connect": "^3.2.0",
+    "js-yaml": "^3.3.0",
+    "swagger-tools": "0.10.1"
+  }
+}
