@@ -1,5 +1,6 @@
 'use strict';
 
+const uuidv1 = require('uuid/v1');
 
 /**
  * delete connection
@@ -25,8 +26,8 @@ exports.connectionsPOST = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
-  "id" : "id"
-};
+      "id" : uuidv1()
+    };
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
