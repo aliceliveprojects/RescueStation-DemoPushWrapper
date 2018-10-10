@@ -17,8 +17,7 @@ exports.messagesPOST = function(body) {
     console.log("got a send request of ",body);
 
 		var data = {};
-		Object.assign( JSON.parse(body), data );
-
+		Object.assign( body, data );
 		var fullPayload = {
       'foreground': 'false',
       'coldstart': 'true',
