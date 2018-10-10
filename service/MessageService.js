@@ -17,7 +17,8 @@ exports.messagesPOST = function(body) {
     console.log("got a send request of ",body);
 
 		var data = {};
-		Object.assign( body, data );
+		Object.assign( JSON.parse(body), data );
+
 		var fullPayload = {
       'foreground': 'false',
       'coldstart': 'true',
@@ -33,6 +34,7 @@ exports.messagesPOST = function(body) {
       fullPayload.notification = data.notification;
       delete data.notification;
     }
+
     // set authorisation in headers
     var headers = {
       'Content-Type':'application/json',
@@ -55,7 +57,8 @@ exports.messagesPOST = function(body) {
       console.log('error posting to FCM:',err);
       reject(err);
     });
-    httpRequest.write( JSON.stringify(data) );
+    console.log("sending to FCM:",fullPayload );
+    httpRequest.write( JSON.stringify( fullPayload ) );
     httpRequest.end();
 
     var posted = {};
