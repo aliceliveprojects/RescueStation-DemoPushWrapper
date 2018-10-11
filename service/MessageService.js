@@ -11,6 +11,17 @@ const MESSAGE_TYPE_ID = { ACK : 0,
 						              CONNECTION_REQUEST: 2,
 						              CONNECTION_RESPONSE: 3,
 						              MESSAGE: 4 };
+const NOTIFICATIONS = [ { },
+                        { },
+                        {
+                          'title': 'Connection Request',
+                          'text': 'You have a connection request from another user',
+                          'sound': 'default'
+                        },
+                        { },
+                        { }
+                      ];
+
 const ACTIVITY = { SHOW: 1,
 					         SCAN: 2 };
 
@@ -36,15 +47,16 @@ exports.messagesPOST = function(body) {
       priority: 'high',
 		};
     // massage payload items around
+    if( data.message_type === MESSAGE_TYPE_ID.CONNECTION_REQUEST ) {
+      // recipeitsn for connection request are set in payload
+    }
 		if (data.hasOwnProperty('recipient_id')) {
       fullPayload.to = data.recipient_id;
       delete data.recipient_id;
 		}
-    if( fullPayload.hasOwnProperty('notification'))  {
-      fullPayload.notification = data.notification;
-      delete data.notification;
-    }
-
+    fullPayload.notification = NOTIFICATIONS[ data.message ];
+    delete data.message;
+    fullPayload.data = data;
     // set authorisation in headers
     var headers = {
       'Content-Type':'application/json',
