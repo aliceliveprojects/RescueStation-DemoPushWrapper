@@ -132,7 +132,7 @@ definitions:
         type: "string"
         description: "base64 encoded payload. format known to both sending and receiving\
           \ parties."
-      payload format type:
+      payload_format_type:
         type: "integer"
         description: "payload format type, known to both parties"
     description: "aggregates the necessary information for sending a message payload"
