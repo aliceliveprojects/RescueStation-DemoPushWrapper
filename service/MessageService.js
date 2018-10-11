@@ -54,7 +54,7 @@ exports.messagesPOST = function(body) {
       fullPayload.to = data.recipient_id;
       delete data.recipient_id;
 		}
-    fullPayload.notification = NOTIFICATIONS[ data.message ];
+    fullPayload.notification = NOTIFICATIONS[ data.message_type ];
     delete data.message;
     fullPayload.data = data;
     // set authorisation in headers
