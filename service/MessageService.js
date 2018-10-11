@@ -73,7 +73,7 @@ exports.messagesPOST = function(body) {
       res.setEncoding('utf8');
       res.on('data',function(body){
         // did not expect this!
-        console.log("WHOAH, DATA CALLBACK HAPPENED!");
+        console.log("WHOAH, DATA CALLBACK HAPPENED!", body);
       });
     });
     httpRequest.on('error',function(err){
