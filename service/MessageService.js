@@ -4,6 +4,17 @@ const http = require('http');
 
 const FCMKEY = "AAAA2MBUecI:APA91bG4FOVHW4VDmlWud27Xh6hK5bGxcdfIl1cfGRETw-M24ElT1VvglHn3z3TSKUiGwzOquhDhE_1kgZHiBKFRF4SdH2bfKhU60OcRz8_yGAag6AJBqt4QSlkBRYInZhB7QksDKHa8"; // shhhhhh!
 
+const ROLE_STRINGS = [ "Rescuer",
+						           "Rescuee" ];
+const MESSAGE_TYPE_ID = { ACK : 0,
+						              NACK : 1,
+						              CONNECTION_REQUEST: 2,
+						              CONNECTION_RESPONSE: 3,
+						              MESSAGE: 4 };
+const ACTIVITY = { SHOW: 1,
+					         SCAN: 2 };
+
+
 /**
  * send a message
  * Send a message to a connection. Note: the message is sent to all parties on the connection. Use disambiguation to ensure you filter correctly.
