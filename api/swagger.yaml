@@ -126,7 +126,7 @@ definitions:
         type: "integer"
         description: "message type: list of supprted types available from /message_types"
       sender_role:
-        type: "string"
+        type: "integer"
         description: "sender role: list of supported types available from /user_roles"
       payload:
         type: "string"
