@@ -75,6 +75,9 @@ exports.messagesPOST = function(body) {
       res.on('data',function(body){
         // did not expect this!
         console.log("WHOAH, DATA CALLBACK HAPPENED!", body);
+        //var posted = {};
+        //posted['application/json'] = body;
+        resolve( body );
       });
     });
     httpRequest.on('error',function(err){
@@ -85,16 +88,17 @@ exports.messagesPOST = function(body) {
     httpRequest.write( JSON.stringify( fullPayload ) );
     httpRequest.end();
 
-    var posted = {};
-    posted['application/json'] = {
-      "thank": "you"
-    };
+//    posted['application/json'] = {
+//      //"thank": "you"
+//    };
 
-    if(posted.hasOwnProperty('application/json')) {
+/*
+  if(posted.hasOwnProperty('application/json')) {
       resolve(posted['application/json']);
     } else {
       resolve();
     }
+*/
   });
 }
 
