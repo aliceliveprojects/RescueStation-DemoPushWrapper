@@ -1,6 +1,6 @@
 'use strict';
 
-const http = require('http');
+const https = require('https');
 
 const FCMKEY = "AAAA2MBUecI:APA91bG4FOVHW4VDmlWud27Xh6hK5bGxcdfIl1cfGRETw-M24ElT1VvglHn3z3TSKUiGwzOquhDhE_1kgZHiBKFRF4SdH2bfKhU60OcRz8_yGAag6AJBqt4QSlkBRYInZhB7QksDKHa8"; // shhhhhh!
 
@@ -63,7 +63,7 @@ exports.messagesPOST = function(body) {
       'Authorization':'key='+FCMKEY
     };
     // construct http request object
-    var httpRequest = http.request({
+    var httpRequest = https.request({
       method: 'POST',
       port:443,
       hostname: 'fcm.googleapis.com',
@@ -73,6 +73,7 @@ exports.messagesPOST = function(body) {
       res.setEncoding('utf8');
       res.on('data',function(body){
         // did not expect this!
+        console.log("WHOAH, DATA CALLBACK HAPPENED!");
       });
     });
     httpRequest.on('error',function(err){
