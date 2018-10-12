@@ -58,7 +58,7 @@ exports.messagesPOST = function(body) {
     }
     fullPayload.notification = NOTIFICATIONS[ data.message_type ];
     delete data.message;
-    fullPayload.data = data;
+    fullPayload.data = JSON.encode( data );
     // set authorisation in headers
     var headers = {
       'Content-Type':'application/json',
