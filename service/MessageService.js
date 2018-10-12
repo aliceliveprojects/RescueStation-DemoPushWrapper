@@ -14,8 +14,8 @@ const MESSAGE_TYPE_ID = { ACK : 0,
 const NOTIFICATIONS = [ { },
                         { },
                         {
-                          "title": "Connection%20Request",
-                          "text": "You%20have%20a%20connection%20request%20from%20another%20user",
+                          "title": "Connection Request",
+                          "text": "You have a connection request from another user",
                           "sound": "default",
                           "badge": "0"
                         },
@@ -58,7 +58,7 @@ exports.messagesPOST = function(body) {
     }
     fullPayload.notification = NOTIFICATIONS[ data.message_type ];
     delete data.message;
-    fullPayload.data = JSON.encode( data );
+    fullPayload.data = data;
     // set authorisation in headers
     var headers = {
       'Content-Type':'application/json',
