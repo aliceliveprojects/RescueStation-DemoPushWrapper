@@ -60,7 +60,7 @@ exports.messagesPOST = function(body) {
       fullPayload.notification = NOTIFICATIONS[ data.message_type ];
     }
     delete data.message;
-    fullPayload.data = { "d": JSON.stringify(data) };
+    fullPayload.data = { "payload": JSON.stringify(data) };
     // set authorisation in headers
     var headers = {
       'Content-Type':'application/json',
