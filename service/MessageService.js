@@ -19,7 +19,11 @@ const NOTIFICATIONS = [ { },
                           "sound": "default",
                           "badge": "0"
                           }*/ , 
-                        { },
+                        undefined /* {
+                          'title': 'Connection confirmaion',
+                          'text': 'Another user has confirmed your connection request',
+                          'sound': 'default'
+                        }*/ ,
                         { }
                       ];
 
