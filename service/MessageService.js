@@ -48,14 +48,14 @@ exports.messagesPOST = function(body) {
       priority: 'high',
 		};
     // massage payload items around
-    if( data.message_type === MESSAGE_TYPE_ID.CONNECTION_REQUEST ) {
-      // recipeitsn for connection request are set in payload
-      fullPayload.to = data.payload;
-    }
 		if (data.hasOwnProperty('recipient_id')) {
       fullPayload.to = data.recipient_id;
       delete data.recipient_id;
 		}
+    if( data.message_type === MESSAGE_TYPE_ID.CONNECTION_REQUEST ) {
+      // recipeitsn for connection request are set in payload
+      fullPayload.to = data.payload;
+    }
     fullPayload.notification = NOTIFICATIONS[ data.message_type ];
     delete data.message;
     fullPayload.data = data;
