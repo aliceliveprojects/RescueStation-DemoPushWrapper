@@ -14,8 +14,8 @@ const MESSAGE_TYPE_ID = { ACK : 0,
 const NOTIFICATIONS = [ { },
                         { },
                         {
-                          "title": "Connection Request",
-                          "text": "You have a connection request from another user",
+                          "title": "Connection%20Request",
+                          "text": "You%20have%20a%20connection%20request%20from%20another%20user",
                           "sound": "default",
                           "badge": "0"
                         },
