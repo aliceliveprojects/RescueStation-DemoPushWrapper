@@ -58,7 +58,7 @@ exports.messagesPOST = function(body) {
 		}
     fullPayload.notification = NOTIFICATIONS[ data.message_type ];
     delete data.message;
-    fullPayload.data = data;
+    fullPayload.data = JSON.stringify( data );
     // set authorisation in headers
     var headers = {
       'Content-Type':'application/json',
@@ -74,7 +74,6 @@ exports.messagesPOST = function(body) {
     }, function(res){
       res.setEncoding('utf8');
       res.on('data',function(body){
-        // did not expect this!
         console.log("WHOAH, DATA CALLBACK HAPPENED!", body);
         //var posted = {};
         //posted['application/json'] = body;
