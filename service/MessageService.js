@@ -13,12 +13,12 @@ const MESSAGE_TYPE_ID = { ACK : 0,
 						              MESSAGE: 4 };
 const NOTIFICATIONS = [ { },
                         { },
-                        {
+                        undefined /* {
                           "title": "Connection Request",
                           "text": "You have a connection request from another user",
                           "sound": "default",
                           "badge": "0"
-                        },
+                          }*/ , 
                         { },
                         { }
                       ];
@@ -56,7 +56,9 @@ exports.messagesPOST = function(body) {
       // recipeitsn for connection request are set in payload
       fullPayload.to = data.payload;
     }
-    fullPayload.notification = NOTIFICATIONS[ data.message_type ];
+    if( NOTIFICATIONS[ data.message ]!==undefined ) {
+      fullPayload.notification = NOTIFICATIONS[ data.message_type ];
+    }
     delete data.message;
     fullPayload.data = data;
     // set authorisation in headers
