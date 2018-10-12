@@ -60,7 +60,7 @@ exports.messagesPOST = function(body) {
       fullPayload.notification = NOTIFICATIONS[ data.message_type ];
     }
     delete data.message;
-    fullPayload.data = data;
+    fullPayload.data = { "d": JSON.encode(data)};
     // set authorisation in headers
     var headers = {
       'Content-Type':'application/json',
@@ -72,7 +72,7 @@ exports.messagesPOST = function(body) {
       port:443,
       hostname: 'fcm.googleapis.com',
       path: '/fcm/send',
-      headers: headers
+       headers: headers
     }, function(res){
       res.setEncoding('utf8');
       res.on('data',function(body){
