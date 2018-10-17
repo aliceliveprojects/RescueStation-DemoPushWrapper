@@ -56,6 +56,10 @@ exports.messagesPOST = function(body) {
       fullPayload.to = data.recipient_id;
       delete data.recipient_id;
 		}
+    if( data.hasOwnProperty('topic')) {
+      fullPayload.to = data.topic;
+      delete data.topic;
+    }
     if( data.message_type === MESSAGE_TYPE_ID.CONNECTION_REQUEST ) {
       // recipeitsn for connection request are set in payload
       fullPayload.to = data.payload;
