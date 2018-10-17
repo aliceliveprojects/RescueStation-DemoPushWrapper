@@ -74,6 +74,11 @@ exports.messagesPOST = function(body) {
       'Content-Type':'application/json',
       'Authorization':'key='+FCMKEY
     };
+
+    console.log("------\nPOSTING:");
+    console.log( JSON.stringify( fullPayload ) );
+    console.log("-----------------\\n\n\n");
+
     // construct http request object
     var httpRequest = https.request({
       method: 'POST',
