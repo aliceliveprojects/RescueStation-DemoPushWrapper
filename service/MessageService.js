@@ -69,10 +69,12 @@ exports.messagesPOST = function(body) {
     }
     delete data.message;
 
-    if(fullPayload.payload_format_type===2) {
-      fullPayload.data = { "payload": JSON.stringify( fullPayload.payload ) } ;
+    console.log("!!! pulling data from "+fullPayload.data );
+
+    if( fullPayload.payload_format_type === 2 ) {
+      fullPayload.data = { "payload": JSON.stringify( fullPayload.data ) } ;
     } else {
-      fullPayload.data = { "payload": data };
+      fullPayload.data = { "payload": String( fullPayload.data ) };
     }
 
     // set authorisation in headers
