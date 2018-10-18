@@ -41,7 +41,7 @@ const ACTIVITY = { SHOW: 1,
 exports.messagesPOST = function(body) {
   return new Promise(function(resolve, reject) {
 
-    console.err("got a send request of ",body);
+    console.log("got a send request of ",body);
 
 		var data = {};
 		data = Object.assign( body, data );
@@ -57,7 +57,8 @@ exports.messagesPOST = function(body) {
       delete data.recipient_id;
 		}
     if( data.hasOwnProperty('topic')) {
-      fullPayload.to = "/topic/"+data.topic;
+      fullPayload.topic = data.topic;
+      fullPayload.data = "XYZ";
       delete data.topic;
     }
     if( data.message_type === MESSAGE_TYPE_ID.CONNECTION_REQUEST ) {
@@ -68,15 +69,7 @@ exports.messagesPOST = function(body) {
       fullPayload.notification = NOTIFICATIONS[ data.message_type ];
     }
     delete data.message;
-
-    console.err("!!! pulling data from "+fullPayload.data );
-
-//    if( fullPayload.payload_format_type === 2 ) {
-//      fullPayload.data = { "payload": JSON.stringify( fullPayload.data ) } ;
-//    } else {
-    fullPayload.data = ({"payload":"GODALMING"}); //{ "payload": String( fullPayload.data ) };
-//    }
-
+    fullPayload.data = { "payload": JSON.stringify(data) };
     // set authorisation in headers
     var headers = {
       'Content-Type':'application/json',
@@ -97,7 +90,7 @@ exports.messagesPOST = function(body) {
     }, function(res){
       res.setEncoding('utf8');
       res.on('data',function(body){
-        console.log("Google Reponse: ", body);
+        console.log("WHOAH, DATA CALLBACK HAPPENED!", body);
         //var posted = {};
         //posted['application/json'] = body;
         resolve( body );
