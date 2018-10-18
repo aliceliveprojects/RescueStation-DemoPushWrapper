@@ -58,7 +58,6 @@ exports.messagesPOST = function(body) {
 		}
     if( data.hasOwnProperty('topic')) {
       fullPayload.topic = data.topic;
-      fullPayload.payload = "XYZ";
       delete data.topic;
     }
     if( data.message_type === MESSAGE_TYPE_ID.CONNECTION_REQUEST ) {
@@ -70,7 +69,8 @@ exports.messagesPOST = function(body) {
     }
     delete data.message;
     if(fullPayload.payload_format_type===2) {
-      fullPayload.data.payload = JSON.parse( fullPayload.payload ) 
+      //fullPayload.data.payload = JSON.parse( fullPayload.payload );
+      fullPayload.data.payload = "XYZ";
     } else {
       fullPayload.data.payload = { "payload": JSON.stringify(data) };
     }
