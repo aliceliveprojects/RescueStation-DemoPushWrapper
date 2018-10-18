@@ -74,7 +74,7 @@ exports.messagesPOST = function(body) {
     } else {
       fullPayload.data = { "payload": JSON.stringify(data) };
     }
-    
+
     // set authorisation in headers
     var headers = {
       'Content-Type':'application/json',
