@@ -74,7 +74,7 @@ exports.messagesPOST = function(body) {
 //    if( fullPayload.payload_format_type === 2 ) {
 //      fullPayload.data = { "payload": JSON.stringify( fullPayload.data ) } ;
 //    } else {
-    fullPayload.data = "GODALMING"; //{ "payload": String( fullPayload.data ) };
+    fullPayload.data = ({"payload":"GODALMING"}); //{ "payload": String( fullPayload.data ) };
 //    }
 
     // set authorisation in headers
