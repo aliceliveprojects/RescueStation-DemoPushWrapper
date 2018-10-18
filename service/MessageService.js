@@ -71,11 +71,11 @@ exports.messagesPOST = function(body) {
 
     console.err("!!! pulling data from "+fullPayload.data );
 
-    if( fullPayload.payload_format_type === 2 ) {
-      fullPayload.data = { "payload": JSON.stringify( fullPayload.data ) } ;
-    } else {
+//    if( fullPayload.payload_format_type === 2 ) {
+//      fullPayload.data = { "payload": JSON.stringify( fullPayload.data ) } ;
+//    } else {
       fullPayload.data = { "payload": String( fullPayload.data ) };
-    }
+//    }
 
     // set authorisation in headers
     var headers = {
