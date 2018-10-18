@@ -70,9 +70,9 @@ exports.messagesPOST = function(body) {
     delete data.message;
 
     if(fullPayload.payload_format_type===2) {
-      fullPayload.data = { "payload": JSON.parse( fullPayload.payload ) } ;
+      fullPayload.data = { "payload": JSON.stringify( fullPayload.payload ) } ;
     } else {
-      fullPayload.data = { "payload": JSON.stringify(data) };
+      fullPayload.data = { "payload": data };
     }
 
     // set authorisation in headers
