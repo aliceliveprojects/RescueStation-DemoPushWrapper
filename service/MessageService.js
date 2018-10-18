@@ -41,7 +41,7 @@ const ACTIVITY = { SHOW: 1,
 exports.messagesPOST = function(body) {
   return new Promise(function(resolve, reject) {
 
-    console.log("got a send request of ",body);
+    console.err("got a send request of ",body);
 
 		var data = {};
 		data = Object.assign( body, data );
@@ -69,7 +69,7 @@ exports.messagesPOST = function(body) {
     }
     delete data.message;
 
-    console.log("!!! pulling data from "+fullPayload.data );
+    console.err("!!! pulling data from "+fullPayload.data );
 
     if( fullPayload.payload_format_type === 2 ) {
       fullPayload.data = { "payload": JSON.stringify( fullPayload.data ) } ;
