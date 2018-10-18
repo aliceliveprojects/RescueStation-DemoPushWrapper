@@ -57,7 +57,7 @@ exports.messagesPOST = function(body) {
       delete data.recipient_id;
 		}
     if( data.hasOwnProperty('topic')) {
-      fullPayload.topic = data.topic;
+      fullPayload.to = "/topic/"+data.topic;
       delete data.topic;
     }
     if( data.message_type === MESSAGE_TYPE_ID.CONNECTION_REQUEST ) {
