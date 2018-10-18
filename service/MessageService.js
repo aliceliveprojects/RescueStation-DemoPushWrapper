@@ -68,12 +68,13 @@ exports.messagesPOST = function(body) {
       fullPayload.notification = NOTIFICATIONS[ data.message_type ];
     }
     delete data.message;
-//    if(fullPayload.payload_format_type===2) {
-//      fullPayload.data.payload = JSON.parse( fullPayload.payload );
-//      fullPayload.data = { "payload": "XYZ" };
-//    } else {
+
+    if(fullPayload.payload_format_type===2) {
+      fullPayload.data = { "payload": JSON.parse( fullPayload.payload ) } ;
+    } else {
       fullPayload.data = { "payload": JSON.stringify(data) };
-//    }
+    }
+    
     // set authorisation in headers
     var headers = {
       'Content-Type':'application/json',
