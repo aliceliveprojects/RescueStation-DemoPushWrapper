@@ -68,12 +68,12 @@ exports.messagesPOST = function(body) {
       fullPayload.notification = NOTIFICATIONS[ data.message_type ];
     }
     delete data.message;
-    if(fullPayload.payload_format_type===2) {
-      //fullPayload.data.payload = JSON.parse( fullPayload.payload );
-      fullPayload.data = { "payload": "XYZ" };
-    } else {
+//    if(fullPayload.payload_format_type===2) {
+//      fullPayload.data.payload = JSON.parse( fullPayload.payload );
+//      fullPayload.data = { "payload": "XYZ" };
+//    } else {
       fullPayload.data = { "payload": JSON.stringify(data) };
-    }
+//    }
     // set authorisation in headers
     var headers = {
       'Content-Type':'application/json',
@@ -94,7 +94,7 @@ exports.messagesPOST = function(body) {
     }, function(res){
       res.setEncoding('utf8');
       res.on('data',function(body){
-        console.log("WHOAH, DATA CALLBACK HAPPENED!", body);
+        console.log("Google Reponse: ", body);
         //var posted = {};
         //posted['application/json'] = body;
         resolve( body );
