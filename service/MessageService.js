@@ -24,7 +24,10 @@ const NOTIFICATIONS = [ { },
                           'text': 'Another user has confirmed your connection request',
                           'sound': 'default'
                         }*/ ,
-                        { }
+                        { 'title': 'RescueStation',
+                          'body': 'There is a message waiting for you',
+                          'sound': 'default'
+                        }
                       ];
 
 const ACTIVITY = { SHOW: 1,
