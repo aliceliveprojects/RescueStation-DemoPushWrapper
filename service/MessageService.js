@@ -66,7 +66,7 @@ exports.messagesPOST = function(body) {
       fullPayload.to = data.payload;
     }
     if( NOTIFICATIONS[ parseInt(data.message_type) ]!==undefined ) {
-      fullPayload.notification = NOTIFICATIONS[ data.message_type ];
+      fullPayload.notification = NOTIFICATIONS[ parseInt(data.message_type) ];
     }
     delete data.message;
     fullPayload.data = { "payload": JSON.stringify(data) };
