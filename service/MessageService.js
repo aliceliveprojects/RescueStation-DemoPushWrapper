@@ -39,9 +39,11 @@ const ACTIVITY = { SHOW: 1,
  * no response value expected for this operation
  **/
 exports.messagesPOST = function(body) {
-  return new Promise(function(resolve, reject) {
 
-    console.log("got a send request of ",body);
+  console.log("\n\n------------------------------------------------\n\n")
+  console.log("💩 got a send request of ",body);
+
+  return new Promise(function(resolve, reject) {
 
 		var data = {};
 		data = Object.assign( body, data );
