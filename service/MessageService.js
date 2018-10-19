@@ -65,7 +65,7 @@ exports.messagesPOST = function(body) {
       // recipeitsn for connection request are set in payload
       fullPayload.to = data.payload;
     }
-    if( NOTIFICATIONS[ data.message ]!==undefined ) {
+    if( NOTIFICATIONS[ parseInt(data.message_type) ]!==undefined ) {
       fullPayload.notification = NOTIFICATIONS[ data.message_type ];
     }
     delete data.message;
