@@ -58,11 +58,6 @@ exports.messagesPOST = function(body) {
       fullPayload.to = data.recipient_id;
       delete data.recipient_id;
 		}
-/*    if( data.hasOwnProperty('topic')) {
-      fullPayload.topic = data.topic;
-      fullPayload.data = "XYZ";
-      delete data.topic;
-    }*/
     if( data.message_type === MESSAGE_TYPE_ID.CONNECTION_REQUEST ) {
       // recipeitsn for connection request are set in payload
       fullPayload.to = data.payload;
@@ -78,10 +73,6 @@ exports.messagesPOST = function(body) {
       'Authorization':'key='+FCMKEY
     };
 
-    console.log("------\nPOSTING:");
-    console.log( JSON.stringify( fullPayload ) );
-    console.log("-----------------\\n\n\n");
-
     // construct http request object
     var httpRequest = https.request({
       method: 'POST',
@@ -93,8 +84,6 @@ exports.messagesPOST = function(body) {
       res.setEncoding('utf8');
       res.on('data',function(body){
         console.log("WHOAH, DATA CALLBACK HAPPENED!", body);
-        //var posted = {};
-        //posted['application/json'] = body;
         resolve( body );
       });
     });
@@ -106,17 +95,6 @@ exports.messagesPOST = function(body) {
     httpRequest.write( JSON.stringify( fullPayload ) );
     httpRequest.end();
 
-//    posted['application/json'] = {
-//      //"thank": "you"
-//    };
-
-/*
-  if(posted.hasOwnProperty('application/json')) {
-      resolve(posted['application/json']);
-    } else {
-      resolve();
-    }
-*/
   });
-}
+};
 
