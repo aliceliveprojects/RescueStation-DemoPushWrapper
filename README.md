@@ -17,3 +17,33 @@ open http://localhost:8080/docs
 ```
 
 This project leverages the mega-awesome [swagger-tools](https://github.com/apigee-127/swagger-tools) middleware which does most all the work.
+
+## Development Notes
+
+The server uses the `node-uuid` [package](https://github.com/broofa/node-uuid) to generate UUIDs.
+
+The `/service` directory are where most of the work is happening and have the skeleton methods invoked over HTTP as functions.
+
+Most of this skeletal implementation is in `/service/MessageService.js` and `/service/ConnectionService.js`. 
+
+### ConnectionService.js
+
+ConnectionService currently just generates a UUID used as the topic subscription for two devices to connect with. The UUID is transitory and not stored.
+
+### MessageService.js
+
+MessageService handles the outbound communication to Google's Firebase Cloud Messaging platform.
+
+`messagesPOST` is the main method implemented. It expects a JSON payload and extracts a `recipient_id` from it, which will be either
+
+1. Another device's FCM `registration_id`, issued when the device signs on to FCM
+2. A topic, of the format `topics/topic_name`, which will broadcast to any devices subscribing to this topic.
+
+The payload is wrapped inside an object (`fullPayload`) which has properties added to ensure it is sent as a notification that can appear for and allow the waking of an application running in the background. The notification format added to `fullPayload` is copied from the `notifications` array, which uses the indexed item matching the `message_type` property of the invocation payload object, allowing different types of notification, based on the message type.
+
+#### A Note on FCM Keys, and why they must be stored away from end users
+
+This server-based interface exists primarily because whilst device-to-device messaging is *possible*, it exposes a server application key in the Application. To send a message through FCM, the HTTP connection must authenticate using an Application Key, which cannot be regenerated and is locked to 
+
+The server application key (stored in `MessageService.js` under `FCMKEY`) is unique per-application and cannot be reissued or revoked in case of a leak, which is why we use *our* server to pass the communications upstream to Google -- it means our mobile application does not have to store this *secret application key*, which removes one exploitation vector.  
+

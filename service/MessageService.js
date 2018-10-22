@@ -43,8 +43,8 @@ const ACTIVITY = { SHOW: 1,
  **/
 exports.messagesPOST = function(body) {
 
-  console.log("\n\n------------------------------------------------\n\n")
-  console.log("💩 got a send request of ",body);
+  console.log("\n\n------------------------------------------------");
+  console.log("→ Got a send request of ",body);
 
   return new Promise(function(resolve, reject) {
 
@@ -86,7 +86,7 @@ exports.messagesPOST = function(body) {
     }, function(res){
       res.setEncoding('utf8');
       res.on('data',function(body){
-        console.log("WHOAH, DATA CALLBACK HAPPENED!", body);
+        console.log("Success posting, FCM says: ", body);
         resolve( body );
       });
     });
