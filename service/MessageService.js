@@ -2,7 +2,7 @@
 
 const https = require('https');
 
-const FCMKEY = "AAAA2MBUecI:APA91bG4FOVHW4VDmlWud27Xh6hK5bGxcdfIl1cfGRETw-M24ElT1VvglHn3z3TSKUiGwzOquhDhE_1kgZHiBKFRF4SdH2bfKhU60OcRz8_yGAag6AJBqt4QSlkBRYInZhB7QksDKHa8"; // shhhhhh!
+const FCMKEY = "ENTER_YOUR_OWN_KEY_HERE!";
 
 const ROLE_STRINGS = [ "Rescuer",
 						           "Rescuee" ];
