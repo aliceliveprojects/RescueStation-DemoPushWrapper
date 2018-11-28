@@ -45,5 +45,34 @@ The payload is wrapped inside an object (`fullPayload`) which has properties add
 
 This server-based interface exists primarily because whilst device-to-device messaging is *possible*, it exposes a server application key in the Application. To send a message through FCM, the HTTP connection must authenticate using an Application Key, which cannot be regenerated and is locked to 
 
-The server application key (stored in `MessageService.js` under `FCMKEY`) is unique per-application and cannot be reissued or revoked in case of a leak, which is why we use *our* server to pass the communications upstream to Google -- it means our mobile application does not have to store this *secret application key*, which removes one exploitation vector.  
+The server application key is unique per-application and cannot be reissued or revoked in case of a leak, which is why we use *our* server to pass the communications upstream to Google -- it means our mobile application does not have to store this *secret application key*, which removes one exploitation vector.  
+
+To set the secret application key, you must devine the environment variable: FIREBASE_SERVER_SECRET
+
+If you are debugging locally, using VisualStudio Code, you can define envirnment variables in the /.vscode/launch.json:
+
+```json
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/index.js",
+            "env": {
+                "PORT": "8003",
+                "FIREBASE_SERVER_SECRET" : "UNSET"
+            } 
+        }
+    ]
+}
+```
+
+If you are deploying to heroku, simply define the environment variable "FIREBASE_SERVER_SECRET" in the 'settings' for your application.
+
+
 

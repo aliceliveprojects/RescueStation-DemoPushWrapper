@@ -3,11 +3,28 @@
 var fs = require('fs'),
     path = require('path'),
     http = require('http');
-
+    
+var cors = require('cors');
 var app = require('connect')();
 var swaggerTools = require('swagger-tools');
 var jsyaml = require('js-yaml');
-var serverPort = 8080;
+var data = require('./utils/data');
+var messageService = require('./service/MessageService');
+
+var consumerApiAddress = process.env.CONSUMER_API_ADDRESS;
+var serverPort = process.env.PORT || 8000;
+
+var getConfig = function(){
+  var result = {};
+  if(!process.env.FIREBASE_SERVER_SECRET) throw new Error("undefined in environment: FIREBASE_SERVER_SECRET");
+  result.serverSecret = process.env.FIREBASE_SERVER_SECRET;
+  return result;
+}
+
+
+
+app.use(cors());
+messageService.initialise(getConfig().serverSecret);
 
 // swaggerRouter configuration
 var options = {
@@ -19,6 +36,15 @@ var options = {
 // The Swagger document (require it, build it programmatically, fetch it from a URL, ...)
 var spec = fs.readFileSync(path.join(__dirname,'api/swagger.yaml'), 'utf8');
 var swaggerDoc = jsyaml.safeLoad(spec);
+
+var consumerApiPort = swaggerDoc.host.split(':')[1];  //WILL THROW IF PORT NOT DEFINED IN DOC
+var consumerApiScheme = swaggerDoc.schemes[0];  //WILL THROW IF SCHEMES NOT DEFINED IN DOC
+data.initialise(consumerApiScheme, consumerApiAddress, consumerApiPort);
+
+// change the standard definition to suit the server environment
+var hostAddrPort = data.getConsumerApiAddress() + ":" + data.getConsumerApiPort(); 
+swaggerDoc.host = hostAddrPort;
+
 
 // Initialize the Swagger middleware
 swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
@@ -37,8 +63,10 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
 
   // Start the server
   http.createServer(app).listen(serverPort, function () {
-    console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
-    console.log('Swagger-ui is available on http://localhost:%d/docs', serverPort);
+    var address = data.getConsumerApiAddress();
+    var scheme = data.getConsumerApiScheme();
+    console.log('SERVER: listening on %s , port %d ', address, serverPort);
+    console.log('Swagger-ui is available on %s://%s:%d/docs', scheme, address, serverPort);
   });
 
 });

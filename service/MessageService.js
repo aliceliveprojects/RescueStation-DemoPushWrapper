@@ -2,7 +2,7 @@
 
 const https = require('https');
 
-const FCMKEY = "ENTER_YOUR_OWN_KEY_HERE!";
+var FCMKEY = undefined;
 
 const ROLE_STRINGS = [ "Rescuer",
 						           "Rescuee" ];
@@ -32,6 +32,11 @@ const NOTIFICATIONS = [ { },
 
 const ACTIVITY = { SHOW: 1,
 					         SCAN: 2 };
+
+
+exports.initialise = function(fcm_secret_key){
+  FCMKEY = fcm_secret_key;
+}
 
 
 /**

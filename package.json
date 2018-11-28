@@ -14,8 +14,10 @@
   "private": true,
   "dependencies": {
     "connect": "^3.2.0",
+    "cors": "^2.8.5",
     "js-yaml": "^3.3.0",
     "node-uuid": "^1.4.8",
-    "swagger-tools": "0.10.1"
+    "swagger-tools": "0.10.1",
+    "uuid": "^3.3.2"
   }
 }
