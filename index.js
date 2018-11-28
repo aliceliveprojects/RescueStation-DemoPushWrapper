@@ -11,8 +11,6 @@ var jsyaml = require('js-yaml');
 var data = require('./utils/data');
 var messageService = require('./service/MessageService');
 
-var consumerApiAddress = process.env.CONSUMER_API_ADDRESS;
-var serverPort = process.env.PORT || 8000;
 
 var getConfig = function(){
   var result = {};
@@ -20,6 +18,7 @@ var getConfig = function(){
   result.serverSecret = process.env.FIREBASE_SERVER_SECRET;
   return result;
 }
+
 
 
 
@@ -37,12 +36,15 @@ var options = {
 var spec = fs.readFileSync(path.join(__dirname,'api/swagger.yaml'), 'utf8');
 var swaggerDoc = jsyaml.safeLoad(spec);
 
+var consumerApiAddress = process.env.CONSUMER_API_ADDRESS;
 var consumerApiPort = swaggerDoc.host.split(':')[1];  //WILL THROW IF PORT NOT DEFINED IN DOC
 var consumerApiScheme = swaggerDoc.schemes[0];  //WILL THROW IF SCHEMES NOT DEFINED IN DOC
 data.initialise(consumerApiScheme, consumerApiAddress, consumerApiPort);
 
+
 // change the standard definition to suit the server environment
 var hostAddrPort = data.getConsumerApiAddress() + ":" + data.getConsumerApiPort(); 
+var serverPort = process.env.PORT || data.getConsumerApiPort();
 swaggerDoc.host = hostAddrPort;
 
 

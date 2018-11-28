@@ -74,5 +74,3 @@ If you are debugging locally, using VisualStudio Code, you can define envirnment
 
 If you are deploying to heroku, simply define the environment variable "FIREBASE_SERVER_SECRET" in the 'settings' for your application.
 
-
-

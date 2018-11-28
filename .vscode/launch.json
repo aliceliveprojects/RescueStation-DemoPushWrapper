@@ -10,7 +10,6 @@
             "name": "Launch Program",
             "program": "${workspaceFolder}/index.js",
             "env": {
-                "PORT": "8003",
                 "FIREBASE_SERVER_SECRET" : "UNSET"
             } 
         }
