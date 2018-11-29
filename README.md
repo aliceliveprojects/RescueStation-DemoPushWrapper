@@ -51,7 +51,7 @@ This server-based interface exists primarily because whilst device-to-device mes
 
 The server application key is unique per-application and cannot be reissued or revoked in case of a leak, which is why we use *our* server to pass the communications upstream to Google -- it means our mobile application does not have to store this *secret application key*, which removes one exploitation vector.  
 
-To set the secret application key, you must devine the environment variable: FIREBASE_SERVER_SECRET
+To set the secret application key, you must define the environment variable: FIREBASE_SERVER_SECRET
 
 If you are debugging locally, using VisualStudio Code, you can define envirnment variables in the /.vscode/launch.json:
 
@@ -74,4 +74,22 @@ If you are debugging locally, using VisualStudio Code, you can define envirnment
 ```
 
 If you are deploying to heroku, simply define the environment variable "FIREBASE_SERVER_SECRET" in the 'settings' for your application.
+
+
+#### A Note on deploying
+The one problem with the lovely swagger tools, is they they define the swagger.yaml with the host address and port. This is necessary, because the swagger ui SPWA (which is used to document the API directly from the server) reads it to discover the address to send http requests to. This makes it a pain when doing deployments: For each deployment, the swagger.yaml has to be changed in the repo, so that the swagger ui has the right address defined.
+
+To get around this, we use an environment variable: CONSUMER_API_ADDRESS, into which we put the domain of the heroku application. e.g. rescuestationpush.herokuapp.com. This value is then written to the YAML file when the app is deployed.
+
+When deploying locally, you can use the /.vscode/launch.json, as above, to specify localhost. If you leave it out, the YAML will be populated with the IP address of the server. 
+
+**Note: this method does not modify the 'scheme' value of YAML** You will have to set this to either http (local) or https (deployed).
+
+
+
+
+
+
+
+
 
