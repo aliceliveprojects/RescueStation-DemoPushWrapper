@@ -12,9 +12,9 @@ info:
   version: "1.0.0"
   title: "Messaging"
   contact: {}
-host: "automaticallyfilledin:443"
+host: "localhost:8080"
 schemes:
-- "https"
+- "http"
 consumes:
 - "application/json"
 produces:
