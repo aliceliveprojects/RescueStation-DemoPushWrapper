@@ -10,8 +10,11 @@
             "name": "Launch Program",
             "program": "${workspaceFolder}/index.js",
             "env": {
-                "PORT": "8003",
-                "FIREBASE_SERVER_SECRET" : "UNSET"
+                "CONSUMER_API_ADDRESS" : "localhost",
+                "FIREBASE_SERVER_SECRET" : "UNSET",
+                "NOTIFICATION_TITLE" : "HELLO!",
+                "NOTIFICATION_BODY": "you come a long way, baby"
+
             } 
         }
     ]

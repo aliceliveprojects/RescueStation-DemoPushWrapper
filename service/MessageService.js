@@ -51,6 +51,9 @@ exports.messagesPOST = function(body) {
   console.log("\n\n------------------------------------------------");
   console.log("→ Got a send request of ",body);
 
+  // See:  https://firebase.google.com/docs/cloud-messaging/concept-options#notifications_and_data_messages
+
+
   return new Promise(function(resolve, reject) {
 
 		var data = {};
@@ -74,6 +77,17 @@ exports.messagesPOST = function(body) {
       fullPayload.notification = NOTIFICATIONS[ parseInt(data.message_type) ];
     }
     delete data.message;
+   
+
+    var notification = {};
+    
+    notification.title = process.env.NOTIFICATION_TITLE;
+    notification.body = process.env.NOTIFICATION_BODY;
+    
+    if(notification.title && notification.body){
+      fullPayload.notification = notification;
+    }
+
     fullPayload.data = { "payload": JSON.stringify(data) };
     // set authorisation in headers
     var headers = {
